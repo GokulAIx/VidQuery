@@ -46,9 +46,9 @@ def main():
             model = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
             import requests
             try:
-                response = requests.get(f"http://127.0.0.1:8000/transcript/{user_YT}")
-                backend_data = response.json()
-                data = backend_data.get("transcript")
+                response = requests.get(f"https://vidquery-backend-8t04.onrender.com/transcript/{user_YT}")
+                data = response.text
+                
                 if not data:
                     st.error("🚫 No transcripts are available for this video.")
                     return
