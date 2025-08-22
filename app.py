@@ -171,9 +171,10 @@ def main():
             st.warning("Please enter a valid YouTube link and a question.")
             return
 
-        model = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
+        
 
         with st.spinner("⚡ GokulAIx is fetching transcripts..."):
+            model = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
             data = Trans(user_YT)
             if data == -1:
                 st.error("🚫 No transcripts are available for this video.")
