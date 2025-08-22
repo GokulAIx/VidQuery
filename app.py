@@ -44,9 +44,16 @@ def main():
 
         with st.spinner("⚡ GokulAIx is fetching transcripts..."):
             model = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
-            data = Trans(user_YT)
-            if data == -1:
-                st.error("🚫 No transcripts are available for this video.")
+            import requests
+            try:
+                response = requests.get(f"http://127.0.0.1:8000/transcript/{user_YT}")
+                backend_data = response.json()
+                data = backend_data.get("transcript")
+                if not data:
+                    st.error("🚫 No transcripts are available for this video.")
+                    return
+            except Exception as e:
+                st.error(f"Error fetching transcript: {e}")
                 return
 
             split = Split(data)
