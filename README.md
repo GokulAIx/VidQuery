@@ -6,7 +6,7 @@ A lightweight Streamlit app that allows users to ask questions about a YouTube v
 ![Streamlit](https://img.shields.io/badge/Built%20With-Streamlit-red?logo=streamlit)
 
 ---
-
+# Demo :[Video](https://www.linkedin.com/in/gokulsreechandra/)
 ## 1. How It Works / Model Overview
 
 - **Input:** YouTube video link + User query  
