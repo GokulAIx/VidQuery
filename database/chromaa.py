@@ -5,9 +5,8 @@ embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-
 
 def ChromaDB(n):
     vectorstore = Chroma.from_documents(
-    documents=n,
-    embedding=embeddings,
-    persist_directory=None
-)
-    vectorstore.persist()
+        documents=n,
+        embedding=embeddings,
+        persist_directory=None  # in-memory
+    )
     return vectorstore
