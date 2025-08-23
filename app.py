@@ -1,6 +1,6 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
-from retrieval.Retrieve import get_multi_query_retriever
 from prompts.prompt import Final_Prompt
+from retrieval.Retrieve import get_multi_query_retriever
 from text_split.text import Split
 from data.transcripts import Trans
 from database.chromaa import ChromaDB
