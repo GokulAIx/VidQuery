@@ -7,7 +7,7 @@ from database.chromaa import ChromaDB
 from dotenv import load_dotenv
 import streamlit as st
 import re
-
+import os
 load_dotenv()
 def set_custom_css():
     st.markdown("""
@@ -43,7 +43,11 @@ def main():
             return
 
         with st.spinner("⚡ GokulAIx is fetching transcripts..."):
-            model = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest")
+            api_key = os.getenv("GOOGLE_API_KEY") 
+            if not api_key:
+                st.error("API key not found. Please set GOOGLE_API_KEY in your Streamlit secrets.")
+                return
+            model = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest", google_api_key=api_key)
             import requests
             try:
                 response = requests.get(f"https://vidquery-backend-8t04.onrender.com/transcript/{user_YT}")
