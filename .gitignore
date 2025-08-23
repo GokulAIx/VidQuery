@@ -1,3 +1,4 @@
 .env
 chrome_integration/
 main/
+.streamlit/secrets.toml
