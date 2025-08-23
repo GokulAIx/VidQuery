@@ -1,5 +1,5 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
-from retrieval.Retrieve import get_retriever
+from retrieval.Retrieve import get_multi_query_retriever
 from prompts.prompt import Final_Prompt
 from text_split.text import Split
 from data.transcripts import Trans
@@ -70,7 +70,8 @@ def main():
 
             store = ChromaDB(split)
 
-            retriever = get_retriever(store)
+            retriever = get_multi_query_retriever(store)
+
             final_retrieved = retriever.get_relevant_documents(user_Query)
 
             if not final_retrieved:
