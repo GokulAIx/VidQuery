@@ -1,3 +1,8 @@
+import sys
+__import__('pysqlite3')
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
+
 from langchain_google_genai import ChatGoogleGenerativeAI
 from retrieval.Retrieve import get_retriever
 from prompts.prompt import Final_Prompt
