@@ -7,7 +7,7 @@ A lightweight Streamlit app that allows users to ask questions about a YouTube v
 
 ---
 # Try it Out : [Live](https://gokulaix-vidquery.streamlit.app/)
-# Demo :[Video](https://www.linkedin.com/feed/update/urn:li:activity:7364912248873500673/)
+# Demo :[Video](https://www.linkedin.com/posts/gokulsreechandra_didnt-understand-the-youtube-video-activity-7365233746779779072-tm-f?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEQzHNkB2PIAH-P1v97NVdlEhwMEHXm2da4)
 ## 1. How It Works / Model Overview
 
 - **Input:** YouTube video link + User query  
@@ -38,7 +38,82 @@ A lightweight Streamlit app that allows users to ask questions about a YouTube v
 
 ## 4. Project Structure
 
-
+env
+│   .gitignore
+│   app.py
+│   LICENSE
+│   README.md
+│   requirements.txt
+│   
+├───.streamlit
+│       secrets.toml
+│       
+├───assets
+│       gokulaix_logo.png
+│       
+├───backend
+│   │   backend.py
+│   │   
+│   └───__pycache__
+│           backend.cpython-312.pyc
+│
+├───chroma_db
+│   │   chroma.sqlite3
+│   │   
+│   └───
+│           data_level0.bin
+│           header.bin
+│           index_metadata.pickle
+│           length.bin
+│           link_lists.bin
+│
+├───chrome_integration
+│       __init__.py
+│
+├───data
+│   │   transcripts.py
+│   │   __init__.py
+│   │
+│   └───__pycache__
+│           transcripts.cpython-312.pyc
+│           __init__.cpython-312.pyc
+│
+├───database
+│   │   chromaa.py
+│   │   __init__.py
+│   │
+│   └───__pycache__
+│           chromaa.cpython-312.pyc
+│           __init__.cpython-312.pyc
+│
+├───main
+│   │   __init__.py
+│   │
+│   └───__pycache__
+│           app.cpython-312.pyc
+│           __init__.cpython-312.pyc
+│
+├───prompts
+│   │   prompt.py
+│   │   __init__.py
+│   │
+│   └───__pycache__
+│           prompt.cpython-312.pyc
+│           __init__.cpython-312.pyc
+│
+├───retrieval
+│   │   Retrieve.py
+│   │   __init__.py
+│   │
+│   └───__pycache__
+│           Retrieve.cpython-312.pyc
+│           __init__.cpython-312.pyc
+│
+└───text_split
+    │   text.py
+    │
+    └───__pycache__
+            text.cpython-312.pyc
 ---
 
 
