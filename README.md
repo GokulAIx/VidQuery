@@ -38,76 +38,128 @@ A lightweight Streamlit app that allows users to ask questions about a YouTube v
 
 ## 4. Project Structure
 
-env
+env 
+
 │   .gitignore
+
 │   app.py
+
 │   LICENSE
+
 │   README.md
+
 │   requirements.txt
+
 │   
+
 ├───.streamlit
+
 │       secrets.toml
 │       
+
 ├───assets
+
 │       gokulaix_logo.png
+
 │       
 ├───backend
+
 │   │   backend.py
+
 │   │   
 │   └───__pycache__
+
 │           backend.cpython-312.pyc
 │
 ├───chroma_db
+
 │   │   chroma.sqlite3
+
 │   │   
 │   └───
 │           data_level0.bin
+
 │           header.bin
+
 │           index_metadata.pickle
+
 │           length.bin
+
 │           link_lists.bin
 │
+
 ├───chrome_integration
+
 │       __init__.py
 │
+
 ├───data
+
 │   │   transcripts.py
+
 │   │   __init__.py
+
 │   │
 │   └───__pycache__
+
 │           transcripts.cpython-312.pyc
+
 │           __init__.cpython-312.pyc
+
 │
 ├───database
+
 │   │   chromaa.py
+
 │   │   __init__.py
+
 │   │
 │   └───__pycache__
+
 │           chromaa.cpython-312.pyc
+
 │           __init__.cpython-312.pyc
+
 │
 ├───main
+
 │   │   __init__.py
+
 │   │
 │   └───__pycache__
+
 │           app.cpython-312.pyc
+
 │           __init__.cpython-312.pyc
+
 │
 ├───prompts
+
 │   │   prompt.py
+
 │   │   __init__.py
+
 │   │
 │   └───__pycache__
+
 │           prompt.cpython-312.pyc
+
 │           __init__.cpython-312.pyc
+
 │
 ├───retrieval
+
 │   │   Retrieve.py
+
 │   │   __init__.py
+
 │   │
 │   └───__pycache__
+
 │           Retrieve.cpython-312.pyc
+
 │           __init__.cpython-312.pyc
+
 │
 └───text_split
     │   text.py
