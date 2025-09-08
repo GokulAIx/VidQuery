@@ -175,7 +175,17 @@ env
 # 1. First, fork this repository to your own GitHub account
 # 2. Clone the repository:
 
+## First fork and clone the backend repo 
+```bash
+fork this repo
+https://github.com/GokulAIx/VidQuery-Backend.git
+clone it
+git clone https://github.com/<your-username>/VidQuery-Backend.git
 
+RUN THE BACKEND FILE , with:
+python backend.py
+```
+## Now fork this current Repo and clone it
 ```bash
 git clone https://github.com/<your-username>/VidQuery.git
 cd rag_app
