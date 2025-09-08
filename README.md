@@ -189,7 +189,7 @@ streamlit run app.py
 - **Name:** P Gokul Sree Chandra  
 - **Email:** polavarapugokul@gmail.com  
 - **LinkedIn:** [Gokul Sree Chandra](https://www.linkedin.com/in/gokulsreechandra/)  
-- **Portfolio:** [GokulAIx](https://soft-truffle-eada3e.netlify.app/)
+- **Portfolio:** [GokulAIx](https://gokulaix.vercel.app/)
 
 ## 11. License
 # This project is licensed under the [MIT License](LICENSE).
