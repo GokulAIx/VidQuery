@@ -7,7 +7,7 @@ A lightweight Streamlit app that allows users to ask questions about a YouTube v
 
 ---
 # Try it Out : [Live](https://gokulaix-vidquery.streamlit.app/)
-# Demo :[Video](https://www.linkedin.com/posts/gokulsreechandra_didnt-understand-the-youtube-video-activity-7365233746779779072-tm-f?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEQzHNkB2PIAH-P1v97NVdlEhwMEHXm2da4)
+# Demo :[Video](https://www.linkedin.com/feed/update/urn:li:activity:7365933549864091649/)
 ## 1. How It Works / Model Overview
 
 - **Input:** YouTube video link + User query  
