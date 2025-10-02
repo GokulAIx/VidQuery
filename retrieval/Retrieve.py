@@ -16,7 +16,7 @@ def get_multi_query_retriever(vectorstore):
 , google_api_key=os.getenv("GOOGLE_API_KEY"))
 
 
-    retriever_base = vectorstore.as_retriever()
+    retriever_base = vectorstore.as_retriever(search_kwargs={"k": 10})
 
 
     multi_query_retriever = MultiQueryRetriever.from_llm(

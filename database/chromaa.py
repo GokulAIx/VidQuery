@@ -3,11 +3,19 @@ from langchain_huggingface import HuggingFaceEmbeddings
 
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
-def ChromaDB(documents):
-    vectorstore = Chroma.from_documents(
-        documents=documents,
-        embedding=embeddings,
+def ChromaDB(documents , user_YT):
+    vectorstore = Chroma(
+        embedding_function=embeddings,
         persist_directory="./chroma_db", 
-        collection_name="vidquery_collection"
+        collection_name=user_YT
     )
-    return vectorstore
+    if vectorstore._collection.count() > 0:
+        return vectorstore
+
+
+    if not documents:
+        return vectorstore
+    
+    vectorstore.add_documents(documents)
+    vectorstore.persist()
+    return vectorstore    

@@ -40,7 +40,7 @@ def main():
 
     match = re.search(r"(?:v=|youtu\.be/|embed/)([a-zA-Z0-9_-]{11})", user_YT)
     user_YT = match.group(1) if match else None
-
+    video_metadata = {"video_id": user_YT}
     if submit_button:
         if not user_YT or not user_Query:
             st.warning("Please enter a valid YouTube link and a question.")
@@ -52,27 +52,34 @@ def main():
                 st.error("API key not found. Please set GOOGLE_API_KEY in your Streamlit secrets.")
                 return
             model = ChatGoogleGenerativeAI(model="gemini-2.5-flash", google_api_key=api_key)
-            import requests
-            try:
-                response = requests.get(f"https://vidquery-backend-8t04.onrender.com/transcript/{user_YT}")
-                data = response.text
-                
-                if not data:
-                    st.error("🚫 No transcripts are available for this video.")
+
+            vectorstore = ChromaDB([], user_YT)
+            existing=vectorstore.similarity_search(query="", filter={"video_id": user_YT} ,k=1)
+
+            if existing:
+                store=vectorstore
+            else:
+                import requests
+                try:
+                    response = requests.get(f"https://vidquery-backend-8t04.onrender.com/transcript/{user_YT}")
+                    data = response.text
+                    
+                    if not data:
+                        st.error("🚫 No transcripts are available for this video.")
+                        return
+                except Exception as e:
+                    st.error(f"Error fetching transcript: {e}")
                     return
-            except Exception as e:
-                st.error(f"Error fetching transcript: {e}")
-                return
 
-            split = Split(data)
-            
-    
-            import sys
-            __import__('pysqlite3')
-            sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-      
+                split = Split(data,metadata=video_metadata)
+                
+        
+                import sys
+                __import__('pysqlite3')
+                sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+        
 
-            store = ChromaDB(split)
+                store = ChromaDB(split , user_YT)
 
             retriever = get_multi_query_retriever(store)
 
