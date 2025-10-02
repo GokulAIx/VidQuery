@@ -7,7 +7,7 @@ A lightweight Streamlit app that allows users to ask questions about a YouTube v
 
 ---
 # Try it Out : [Live](https://gokulaix-vidquery.streamlit.app/)
-# Demo :[Video](https://www.linkedin.com/feed/update/urn:li:activity:7364912248873500673/)
+# Demo :[Video](https://www.linkedin.com/feed/update/urn:li:activity:7365933549864091649/)
 ## 1. How It Works / Model Overview
 
 - **Input:** YouTube video link + User query  
@@ -38,7 +38,134 @@ A lightweight Streamlit app that allows users to ask questions about a YouTube v
 
 ## 4. Project Structure
 
+env 
 
+│   .gitignore
+
+│   app.py
+
+│   LICENSE
+
+│   README.md
+
+│   requirements.txt
+
+│   
+
+├───.streamlit
+
+│       secrets.toml
+│       
+
+├───assets
+
+│       gokulaix_logo.png
+
+│       
+├───backend
+
+│   │   backend.py
+
+│   │   
+│   └───__pycache__
+
+│           backend.cpython-312.pyc
+│
+├───chroma_db
+
+│   │   chroma.sqlite3
+
+│   │   
+│   └───
+│           data_level0.bin
+
+│           header.bin
+
+│           index_metadata.pickle
+
+│           length.bin
+
+│           link_lists.bin
+│
+
+├───chrome_integration
+
+│       __init__.py
+│
+
+├───data
+
+│   │   transcripts.py
+
+│   │   __init__.py
+
+│   │
+│   └───__pycache__
+
+│           transcripts.cpython-312.pyc
+
+│           __init__.cpython-312.pyc
+
+│
+├───database
+
+│   │   chromaa.py
+
+│   │   __init__.py
+
+│   │
+│   └───__pycache__
+
+│           chromaa.cpython-312.pyc
+
+│           __init__.cpython-312.pyc
+
+│
+├───main
+
+│   │   __init__.py
+
+│   │
+│   └───__pycache__
+
+│           app.cpython-312.pyc
+
+│           __init__.cpython-312.pyc
+
+│
+├───prompts
+
+│   │   prompt.py
+
+│   │   __init__.py
+
+│   │
+│   └───__pycache__
+
+│           prompt.cpython-312.pyc
+
+│           __init__.cpython-312.pyc
+
+│
+├───retrieval
+
+│   │   Retrieve.py
+
+│   │   __init__.py
+
+│   │
+│   └───__pycache__
+
+│           Retrieve.cpython-312.pyc
+
+│           __init__.cpython-312.pyc
+
+│
+└───text_split
+    │   text.py
+    │
+    └───__pycache__
+            text.cpython-312.pyc
 ---
 
 
@@ -48,7 +175,17 @@ A lightweight Streamlit app that allows users to ask questions about a YouTube v
 # 1. First, fork this repository to your own GitHub account
 # 2. Clone the repository:
 
+## First fork and clone the backend repo 
+```bash
+fork this repo
+https://github.com/GokulAIx/VidQuery-Backend.git
+clone it
+git clone https://github.com/<your-username>/VidQuery-Backend.git
 
+RUN THE BACKEND FILE , with:
+python backend.py
+```
+## Now fork this current Repo and clone it
 ```bash
 git clone https://github.com/<your-username>/VidQuery.git
 cd rag_app
@@ -62,7 +199,7 @@ streamlit run app.py
 - **Name:** P Gokul Sree Chandra  
 - **Email:** polavarapugokul@gmail.com  
 - **LinkedIn:** [Gokul Sree Chandra](https://www.linkedin.com/in/gokulsreechandra/)  
-- **Portfolio:** [GokulAIx](https://soft-truffle-eada3e.netlify.app/)
+- **Portfolio:** [GokulAIx](https://gokulaix.vercel.app/)
 
 ## 11. License
 # This project is licensed under the [MIT License](LICENSE).
