@@ -8,6 +8,10 @@ from dotenv import load_dotenv
 import streamlit as st
 import re
 import os
+import sys
+import sqlite3
+sys.modules['pysqlite3'] = sqlite3
+
 load_dotenv()
 def set_custom_css():
     st.markdown("""
@@ -47,7 +51,7 @@ def main():
             if not api_key:
                 st.error("API key not found. Please set GOOGLE_API_KEY in your Streamlit secrets.")
                 return
-            model = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest", google_api_key=api_key)
+            model = ChatGoogleGenerativeAI(model="gemini-2.5-flash", google_api_key=api_key)
             import requests
             try:
                 response = requests.get(f"https://vidquery-backend-8t04.onrender.com/transcript/{user_YT}")
@@ -62,11 +66,11 @@ def main():
 
             split = Split(data)
             
-            # --- Move the hot-swap code here ---
+    
             import sys
             __import__('pysqlite3')
             sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-            # ------------------------------------
+      
 
             store = ChromaDB(split)
 

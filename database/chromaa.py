@@ -7,7 +7,7 @@ def ChromaDB(documents):
     vectorstore = Chroma.from_documents(
         documents=documents,
         embedding=embeddings,
-        persist_directory=None,  # in-memory, no persistence
+        persist_directory="./chroma_db", 
         collection_name="vidquery_collection"
     )
     return vectorstore

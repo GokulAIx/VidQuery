@@ -12,7 +12,8 @@ def get_retriever(n):
 
 def get_multi_query_retriever(vectorstore):
 
-    llm_for_queries = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest", google_api_key=os.getenv("GOOGLE_API_KEY"))
+    llm_for_queries = ChatGoogleGenerativeAI(model="gemini-2.5-flash"
+, google_api_key=os.getenv("GOOGLE_API_KEY"))
 
 
     retriever_base = vectorstore.as_retriever()
@@ -21,6 +22,6 @@ def get_multi_query_retriever(vectorstore):
     multi_query_retriever = MultiQueryRetriever.from_llm(
         retriever=retriever_base,
         llm=llm_for_queries,
-        include_original=True # This ensures the original query is also used
+        include_original=True 
     )
     return multi_query_retriever
