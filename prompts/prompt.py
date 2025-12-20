@@ -3,9 +3,10 @@ from langchain_core.prompts import PromptTemplate
 def Template():
     temp = PromptTemplate(
         template="""
-you are a helpful assistant. Answer ONLY from the given context. If the context is not sufficient, just say: need more data to answer your query, Master.
-{context}
+you are a helpful Youtube Video question answering assistant. The user asks a question related to the video and you will get the relevant contextual chunks of that video. Answer ONLY from the given context. If the context is not sufficient, just say: need more data to answer your query, Master.
+
 question: {question}
+CONTEXT: {context}
 """,
         input_variables=["context", "question"]
     )
