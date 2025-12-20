@@ -3,6 +3,10 @@ from langchain_community.vectorstores import Chroma
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.retrievers.multi_query import MultiQueryRetriever
 import os 
+from langchain_community.retrievers import BM25Retriever
+from langchain.retrievers import EnsembleRetriever
+
+
 
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
@@ -25,3 +29,22 @@ def get_multi_query_retriever(vectorstore):
         include_original=True 
     )
     return multi_query_retriever
+
+
+
+
+def get_hybrid_retriever(vectorstore, documents):
+
+    bm25_retriever = BM25Retriever.from_documents(documents)
+    bm25_retriever.k = 5 
+
+
+    semantic_retriever = get_multi_query_retriever(vectorstore)
+
+
+    ensemble_retriever = EnsembleRetriever(
+        retrievers=[bm25_retriever, semantic_retriever],
+        weights=[0.4, 0.6] 
+    )
+    
+    return ensemble_retriever

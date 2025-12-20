@@ -8,14 +8,14 @@ def ChromaDB(documents , user_YT):
         embedding_function=embeddings,
         persist_directory="./chroma_db", 
         collection_name=user_YT
-    )
-    if vectorstore._collection.count() > 0:
+    )       
+    if vectorstore.get()['documents']:
         return vectorstore
+
 
 
     if not documents:
         return vectorstore
     
     vectorstore.add_documents(documents)
-    vectorstore.persist()
     return vectorstore    

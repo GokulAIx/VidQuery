@@ -11,7 +11,8 @@ import os
 import sys
 import sqlite3
 sys.modules['pysqlite3'] = sqlite3
-
+from retrieval.Retrieve import get_hybrid_retriever
+from langchain_core.documents import Document
 load_dotenv()
 def set_custom_css():
     st.markdown("""
@@ -54,10 +55,18 @@ def main():
             model = ChatGoogleGenerativeAI(model="gemini-2.5-flash", google_api_key=api_key)
 
             vectorstore = ChromaDB([], user_YT)
+            docx=[]
             existing=vectorstore.similarity_search(query="", filter={"video_id": user_YT} ,k=1)
 
             if existing:
+                # store=vectorstore
+                retrieved_data = vectorstore.get(include=["documents", "metadatas"])
+                docx = [
+                Document(page_content=doc, metadata=meta) 
+                for doc, meta in zip(retrieved_data['documents'], retrieved_data['metadatas'])
+            ]
                 store=vectorstore
+
             else:
                 import requests
                 try:
@@ -71,7 +80,8 @@ def main():
                     st.error(f"Error fetching transcript: {e}")
                     return
 
-                split = Split(data,metadata=video_metadata)
+                docx = Split(data, metadata=video_metadata)
+
                 
         
                 import sys
@@ -79,11 +89,13 @@ def main():
                 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
         
 
-                store = ChromaDB(split , user_YT)
+                store = ChromaDB(docx , user_YT)
+            st.info("--- CHECKPOINT: Preparing to run hybrid search. ---")
+        with st.spinner("⚡ Using Hybrid search for better results"):
+            retriever = get_hybrid_retriever(store, docx)
 
-            retriever = get_multi_query_retriever(store)
+            final_retrieved = retriever.invoke(user_Query)
 
-            final_retrieved = retriever.get_relevant_documents(user_Query)
 
             if not final_retrieved:
                 st.info("No relevant information found in this video.")
@@ -94,21 +106,21 @@ def main():
 
             response = model.invoke(prompt)
 
-        st.markdown(f"""
-        <div class="response-box">
-        <h3>📝 GOAT Answer</h3>
-        <p>{response.content}</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.markdown(
-            """
-            <div style='text-align: center; padding: 20px; color: #aaa;'>
-            ⚡ Powered by <b style="color:#00ffcc;">GokulAIx</b>
+            st.markdown(f"""
+            <div class="response-box">
+            <h3>📝 GOAT Answer</h3>
+            <p>{response.content}</p>
             </div>
-            """,
-            unsafe_allow_html=True
-        )
+            """, unsafe_allow_html=True)
+
+            st.markdown(
+                """
+                <div style='text-align: center; padding: 20px; color: #aaa;'>
+                ⚡ Powered by <b style="color:#00ffcc;">GokulAIx</b>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
 if __name__ == "__main__":
     main()
