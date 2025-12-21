@@ -5,16 +5,19 @@ from langchain.retrievers.multi_query import MultiQueryRetriever
 import os 
 from langchain_community.retrievers import BM25Retriever
 from langchain.retrievers import EnsembleRetriever
+from langchain_core.runnables import Runnable
 
-class SafeRetriever:
+
+
+class SafeRetriever(Runnable):
     def __init__(self, retriever):
         self.retriever = retriever
 
-    def invoke(self, query):
-        # 🔒 block empty / whitespace queries
-        if not query or not query.strip():
+    def invoke(self, input, config=None):
+        if not input or not str(input).strip():
             return []
-        return self.retriever.invoke(query)
+        return self.retriever.invoke(input, config=config)
+
 
 
 
