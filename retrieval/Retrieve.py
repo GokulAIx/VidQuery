@@ -5,19 +5,6 @@ from langchain.retrievers.multi_query import MultiQueryRetriever
 import os 
 from langchain_community.retrievers import BM25Retriever
 from langchain.retrievers import EnsembleRetriever
-from langchain_core.runnables import Runnable
-
-
-
-class SafeRetriever(Runnable):
-    def __init__(self, retriever):
-        self.retriever = retriever
-
-    def invoke(self, input, config=None):
-        if not input or not str(input).strip():
-            return []
-        return self.retriever.invoke(input, config=config)
-
 
 
 
@@ -33,10 +20,7 @@ def get_multi_query_retriever(vectorstore):
 , google_api_key=os.getenv("GOOGLE_API_KEY"))
 
 
-    retriever_base = SafeRetriever(
-    vectorstore.as_retriever(search_kwargs={"k": 10})
-)
-
+    retriever_base = vectorstore.as_retriever(search_kwargs={"k": 10})
 
 
     multi_query_retriever = MultiQueryRetriever.from_llm(
