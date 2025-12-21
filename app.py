@@ -56,7 +56,11 @@ def main():
 
             vectorstore = ChromaDB([], user_YT)
             docx=[]
-            existing=vectorstore.similarity_search(query="", filter={"video_id": user_YT} ,k=1)
+            existing = vectorstore.get(
+    where={"video_id": user_YT},
+    limit=1
+)
+
 
             if existing:
                 # store=vectorstore
