@@ -6,6 +6,16 @@ import os
 from langchain_community.retrievers import BM25Retriever
 from langchain.retrievers import EnsembleRetriever
 
+class SafeRetriever:
+    def __init__(self, retriever):
+        self.retriever = retriever
+
+    def invoke(self, query):
+        # 🔒 block empty / whitespace queries
+        if not query or not query.strip():
+            return []
+        return self.retriever.invoke(query)
+
 
 
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
@@ -20,7 +30,10 @@ def get_multi_query_retriever(vectorstore):
 , google_api_key=os.getenv("GOOGLE_API_KEY"))
 
 
-    retriever_base = vectorstore.as_retriever(search_kwargs={"k": 10})
+    retriever_base = SafeRetriever(
+    vectorstore.as_retriever(search_kwargs={"k": 10})
+)
+
 
 
     multi_query_retriever = MultiQueryRetriever.from_llm(
