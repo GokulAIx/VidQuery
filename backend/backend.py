@@ -19,4 +19,5 @@ async def get_transcript(video_id: str):
             status_code=404,
             detail="Transcripts are disabled for this video."
         )
-    return {"transcript": transcript_text}
+    # Return plain text for consistency with app.py expectations
+    return transcript_text

@@ -34,7 +34,11 @@ def get_multi_query_retriever(vectorstore):
 
 
 def get_hybrid_retriever(vectorstore, documents):
-
+    # Check if documents list is empty
+    if not documents or len(documents) == 0:
+        raise ValueError("Documents list is empty. Cannot create BM25 retriever.")
+    
+    # LangChain 0.2.16 compatible - simple and straightforward
     bm25_retriever = BM25Retriever.from_documents(documents)
     bm25_retriever.k = 5 
 

@@ -75,28 +75,41 @@ def main():
                 import requests
                 try:
                     response = requests.get(f"https://vidquery-backend-8t04.onrender.com/transcript/{user_YT}")
+                    response.raise_for_status()  # Raise an exception for bad status codes
                     data = response.text
                     
-                    if not data:
-                        st.error("🚫 No transcripts are available for this video.")
+                    # Better validation for transcript data
+                    if not data or len(data.strip()) < 10:
+                        st.error("🚫 No transcripts are available for this video or the transcript is too short.")
                         return
+                except requests.RequestException as e:
+                    st.error(f"❌ Error fetching transcript from server: {e}")
+                    return
                 except Exception as e:
-                    st.error(f"Error fetching transcript: {e}")
+                    st.error(f"❌ Unexpected error: {e}")
                     return
 
                 docx = Split(data, metadata=video_metadata)
+                
+                # Validate documents were created
+                if not docx or len(docx) == 0:
+                    st.error("❌ Failed to process the video transcript. The transcript might be empty.")
+                    return
 
                 
         
-                import sys
-                __import__('pysqlite3')
-                sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+                # pysqlite3 already imported at top of file
+                pass
         
 
                 store = ChromaDB(docx , user_YT)
             st.info("--- CHECKPOINT: Preparing to run hybrid search. ---")
         with st.spinner("⚡ Using Hybrid search for better results"):
-            retriever = get_hybrid_retriever(store, docx)
+            try:
+                retriever = get_hybrid_retriever(store, docx)
+            except ValueError as e:
+                st.error(f"❌ Error creating retriever: {str(e)}")
+                return
 
             final_retrieved = retriever.invoke(user_Query)
 
