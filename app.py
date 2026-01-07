@@ -82,20 +82,28 @@ def main():
 
             if not existing or not existing.get('ids') or not docx:
                 import requests
+                data = None
+                
+                # Try backend first
                 try:
-                    response = requests.get(f"https://vidquery-backend-8t04.onrender.com/transcript/{user_YT}")
-                    response.raise_for_status()  # Raise an exception for bad status codes
+                    response = requests.get(
+                        f"https://vidquery-backend-8t04.onrender.com/transcript/{user_YT}",
+                        timeout=10
+                    )
+                    response.raise_for_status()
                     data = response.text
-                    
-                    # Better validation for transcript data
-                    if not data or len(data.strip()) < 10:
-                        st.error("🚫 No transcripts are available for this video or the transcript is too short.")
-                        return
                 except requests.RequestException as e:
-                    st.error(f"❌ Error fetching transcript from server: {e}")
-                    return
-                except Exception as e:
-                    st.error(f"❌ Unexpected error: {e}")
+                    st.warning(f"⚠️ Backend unavailable, trying direct fetch... ({e})")
+                    # Fallback to direct API call
+                    try:
+                        data = Trans(user_YT)
+                    except Exception as fallback_error:
+                        st.error(f"❌ Failed to fetch transcript: {fallback_error}")
+                        return
+                
+                # Validate transcript data
+                if not data or len(data.strip()) < 10:
+                    st.error("🚫 No transcripts are available for this video or the transcript is too short.")
                     return
 
                 docx = Split(data, metadata=video_metadata)
