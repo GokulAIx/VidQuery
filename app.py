@@ -57,21 +57,30 @@ def main():
             vectorstore = ChromaDB([], user_YT)
             docx=[]
             existing = vectorstore.get(
-    where={"video_id": user_YT},
-    limit=1
-)
+                where={"video_id": user_YT},
+                limit=1
+            )
 
 
-            if existing:
-                # store=vectorstore
-                retrieved_data = vectorstore.get(include=["documents", "metadatas"])
-                docx = [
-                Document(page_content=doc, metadata=meta) 
-                for doc, meta in zip(retrieved_data['documents'], retrieved_data['metadatas'])
-            ]
-                store=vectorstore
+            if existing and existing.get('ids'):
+                # Retrieve all documents for this specific video
+                retrieved_data = vectorstore.get(
+                    where={"video_id": user_YT},
+                    include=["documents", "metadatas"]
+                )
+                
+                if retrieved_data and retrieved_data.get('documents'):
+                    docx = [
+                        Document(page_content=doc, metadata=meta) 
+                        for doc, meta in zip(retrieved_data['documents'], retrieved_data['metadatas'])
+                    ]
+                    store = vectorstore
+                    st.success(f"✅ Loaded {len(docx)} cached document chunks for this video")
+                else:
+                    # If no documents found, treat as new video
+                    existing = None
 
-            else:
+            if not existing or not existing.get('ids') or not docx:
                 import requests
                 try:
                     response = requests.get(f"https://vidquery-backend-8t04.onrender.com/transcript/{user_YT}")
