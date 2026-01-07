@@ -1,5 +1,3 @@
-
-https://github.com/user-attachments/assets/3998c2da-2db2-4487-b6b9-f4ac8c3f9bab
 # VidQuery - Ask Any Question From a YouTube Video!
 
 A lightweight Streamlit app that allows users to ask questions about a YouTube video and get answers using the video's transcript. This is a Retrieval-Augmented Generation (RAG) based application leveraging embeddings for semantic search and natural language understanding.
